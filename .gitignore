@@ -4,3 +4,4 @@
 /.save.git
 /logs
 .temp_keys
+.DS_Store
