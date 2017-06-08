@@ -78,6 +78,69 @@ install_apt_get_should_not_be_installed "Ubuntu 14.04 64 Bits" "
       libosmesa6-dev
       libosmesa6-dbg
       libosmesa6
+  # Remove old llvm
+      llvm-3.4
+      llvm-3.4-dev
+      llvm-3.4-runtime
  "
+
+    echo "wget gpg.key & apt-key add - "
+
+wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -   >/dev/null 2>&1;
+# Fingerprint: 6084 F3CF 814B 57C1 CF12 EFD5 15CF 4D18 AF4F 7421
+
+sudo add-apt-repository "deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-4.0 main"
+
+
+    echo "update -y "
+
+sudo apt-get update -y  >/dev/null 2>&1;
+
+install_apt_get_requirements "Ubuntu 14.04 64 Bits" "
+  # Requiment to use llvm new
+    clang-4.0
+    lldb-4.0
+    lld-4.0
+"
+install_apt_get_requirements "Ubuntu 14.04 64 Bits" "
+  # Requiment to use llvm new
+    clang-4.0
+    clang-4.0-doc
+    libclang-common-4.0-dev
+    libclang-4.0-dev
+    libclang1-4.0
+    libclang1-4.0-dbg
+"
+install_apt_get_requirements "Ubuntu 14.04 64 Bits" "
+  # Requiment to use llvm new
+     libllvm-4.0-ocaml-dev
+     libllvm4.0
+     libllvm4.0-dbg
+     lldb-4.0
+     llvm-4.0
+     llvm-4.0-dev
+     llvm-4.0-doc
+"
+install_apt_get_requirements "Ubuntu 14.04 64 Bits" "
+  # Requiment to use llvm new
+    llvm-4.0-examples
+    llvm-4.0-runtime
+    clang-format-4.0
+    python-clang-4.0
+    liblldb-4.0-dev
+    lld-4.0
+    libfuzzer-4.0-dev
+"
+
+clang --version
+
+dpkg -l "*clang*" | grep ii | awk '{ print $2 }' | tr '\n' ' '
+dpkg -l "*llvm*" | grep ii | awk '{ print $2 }' | tr '\n' ' '
+
+
+#verify_installed_version "llc --version | grep version"  "4.0"
+
+
+
 cd /_/servo
 RUST_BACKTRACE=1 ./mach build --dev
