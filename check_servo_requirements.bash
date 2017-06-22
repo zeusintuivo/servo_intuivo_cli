@@ -70,29 +70,50 @@ install_apt_get_requirements "Ubuntu 14.04 64 Bits" "
       libncurses5
       libncurses5-dbg
       libncurses5-dev
-  # Requirement only to have a script
-  scite
-"
-install_apt_get_should_not_be_installed "Ubuntu 14.04 64 Bits" "
-  # Requirements for libOSMesa
-      libosmesa6-dev
-      libosmesa6-dbg
-      libosmesa6
-  # Remove old llvm
-      llvm-3.4
-      llvm-3.4-dev
-      llvm-3.4-runtime
+  # Requirement for llvm manual compile
+    libdrm-dev
+    libdrm
  "
 
-    echo "wget gpg.key & apt-key add - "
+install_apt_get_requirements "Ubuntu 14.04 64 Bits" "
+   libglapi-mesa
+"
+
+install_apt_get_requirements "Ubuntu 14.04 64 Bits" "
+    # free implementation of the GL API -- shared library
+    libglapi-mesa
+    # free implementation of the GL API -- debugging symbols
+    libglapi-mesa-dbg
+    # - Transitional package for libglapi-mesa
+    libglapi-mesa-lts-trusty
+    # - Transitional package for libglapi-mesa-dbg
+    libglapi-mesa-lts-trusty-dbg
+
+  # to use apt-cache search
+    apt-file
+  # Editor
+    scite
+"
+#install_apt_get_should_
+#not_be_installed "Ubuntu 14.04 64 Bits" "
+#  # Requirements for libOSMesa
+#      libosmesa6-dev
+#      libosmesa6-dbg
+#      libosmesa6
+#  # Remove old llvm
+#      llvm-3.4
+#      llvm-3.4-dev
+#      llvm-3.4-runtime
+# "
+
+echo "wget gpg.key & apt-key add - "
 
 wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -   >/dev/null 2>&1;
 # Fingerprint: 6084 F3CF 814B 57C1 CF12 EFD5 15CF 4D18 AF4F 7421
 
-sudo add-apt-repository "deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-4.0 main"
+sudo add-apt-repository "deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-4.0 main"  >/dev/null 2>&1;
 
-
-    echo "update -y "
+echo "update -y "
 
 sudo apt-get update -y  >/dev/null 2>&1;
 
@@ -137,10 +158,69 @@ clang --version
 dpkg -l "*clang*" | grep ii | awk '{ print $2 }' | tr '\n' ' '
 dpkg -l "*llvm*" | grep ii | awk '{ print $2 }' | tr '\n' ' '
 
+#wget -nc ftp://ftp.freedesktop.org/pub/mesa/current/mesa-10.5.4.tar.xz
+#wget -nc http://cygwin.mirror.constant.com/x86_64/release/mesa/mesa-17.0.6-1.tar.xz
+[ ! -f mesa-17.0.6-1-src.tar.xz ] && wget -nc http://cygwin.mirror.constant.com/x86_64/release/mesa/mesa-17.0.6-1-src.tar.xz
+#tar Jxf mesa-10.5.4.tar.xz
+[ ! -d mesa-17.0.6-1-src/ ] && tar Jxf mesa-17.0.6-1-src.tar.xz
+#cd mesa-10.5.4/
+cd mesa-17.0.6*
+[ ! -d mesa-17.0.6/ ] && tar Jxf mesa-17.0.6.tar.xz
+cd mesa-17.0.6*
+
+autoreconf -fi
+
+#./configure \
+# CXXFLAGS="-O2 -g -DDEFAULT_SOFTWARE_DEPTH_BITS=31" \
+# CFLAGS="-O2 -g -DDEFAULT_SOFTWARE_DEPTH_BITS=31" \
+# --disable-xvmc \
+# --disable-glx \
+# --disable-dri \
+# --with-dri-drivers="" \
+# --with-gallium-drivers="" \
+# --disable-shared-glapi \
+# --disable-egl \
+# --with-egl-platforms="" \
+# --enable-osmesa \
+# --enable-gallium-llvm=no \
+# --prefix=/usr/local/mesa/10.2.2/classic
+ ./configure \
+ CXXFLAGS="-O2 -g -DDEFAULT_SOFTWARE_DEPTH_BITS=31" \
+ CFLAGS="-O2 -g -DDEFAULT_SOFTWARE_DEPTH_BITS=31" \
+ --disable-xvmc \
+ --disable-glx \
+ --disable-dri \
+ --without-OSMesa \
+ --with-dri-drivers="" \
+ --with-gallium-drivers="" \
+ --disable-shared-glapi \
+ --disable-egl \
+ --with-egl-platforms="" \
+ --enable-gallium-llvm=no \
+ --prefix=/usr/local/mesa/17.0.6/classic
+make -j4
+# optional
+make check
+sudo make install
+
+
 
 #verify_installed_version "llc --version | grep version"  "4.0"
 
 
+if (( $? == 0 )) ;  then
+  cd /_/servo
+  RUST_BACKTRACE=1 ./mach build --dev
+fi
 
-cd /_/servo
-RUST_BACKTRACE=1 ./mach build --dev
+
+
+
+
+
+
+
+
+echo ":)"
+
+
