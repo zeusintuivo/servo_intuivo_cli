@@ -359,9 +359,98 @@ echo ":)"
 Fedora NOTES
 
 
+    1  cd /_
+    2  sudo mkdir /_
+    3  cd 7_
+    4  cd /_
+    5  sudo chown -R $USER:$USER
+    6  sudo chown -R $USER:$USER /_
+    7  git clone https://github.com/servo/servo
+    8  sudo dnf install curl freeglut-devel libtool gcc-c++ libXi-devel     freetype-devel mesa-libGL-devel mesa-libEGL-devel glib2-devel libX11-devel libXrandr-devel gperf     fontconfig-devel cabextract ttmkfdir python python-virtualenv python-pip expat-devel     rpm-build openssl-devel cmake bzip2-devel libXcursor-devel libXmu-devel mesa-libOSMesa-devel     dbus-devel
+    9  git clone https://github.com/servo/servo
+   10  cd servo/
+   11  ./mach build --dev
+   12  pip install dbus
+   13  pip install --upgrade pip
+   14  python --version
+   15  pyenv
+   16  py-env
+   17  echo $PATH
+   18  echo %PATH%
+   19  [Warning] Could not generate notification! Optional Python module 'dbus' is not installed.
+   20  sudo pip install --upgrade pip
+   21  pip install dbus
+   22  uname
+   23  uname -r
+   24  uname -w
+   25  uname -m
+   26  nix
+   27  nix-env
+   28  pyenv
+   29  dnf
+   30  df -h
+   31  uname -r
+   32  sudo -i
+   33  apt-get
+   34  sudo rpm update -y
+   35  sudo rpm update
+   36  sudo yum update -y
+   37  sudo mkdir /media/VirtualBoxGuestAdditions
+   38  mount -r /dev/cdrom /media/VirtualBoxGuestAdditions/
+   39  sudo mount -r /dev/cdrom /media/VirtualBoxGuestAdditions/
+   40  sudo dnf install dkms -y
+   41  sudo dnf install kernel-devel kernel-headers dkms  make bzip2 perl -y
+   42  KERN_DIR=/usr/src/kernels/`uname -r`
+   43  echo $KERN_DIR
+   44  export KERN_DIR
+   45  cd /media/VirtualBoxGuestAdditions/
+   46  ls
+   47  ./VBoxLinuxAdditions.run
+   48  sudo ./VBoxLinuxAdditions.run
+   49  cd /media/
+   50  ls
+   51  cd VirtualBoxGuestAdditions/
+   52  ls
+   53  sudo mount -r /dev/cdrom /media/VirtualBoxGuestAdditions/
+   54  ls
+   55  cd ..
+   56  rmdir
+   57  rmdir /media/VirtualBoxGuestAdditions/
+   58  sudo rmdir /media/VirtualBoxGuestAdditions/
+   59  umount -a
+   60  sudo umount -a
+   61  ls
+   62  sudo rmdir VirtualBoxGuestAdditions/
+   63  ls
+   64  cd VirtualBoxGuestAdditions/
+   65  ls
+   66  df -h
+   67  cd /run/media/zeus/VBOXADDITIONS_5.0.24_108355
+   68  ls
+   69  sudo ./runasroot.sh
+   70  sudo -i
+   71  cd /_/servo/
+   72  ls -la
+   73  cd ..
+   74  ls -la
+   75  cd servo/
+   76  git log
+   77  cd /_/
+   78  rm -rf servo
+   79  cd
+   80  git clone --depth 1 --single-branch https://github.com/servo/servo
+   81  cd servo
+   82  RUST_BACKTRACE=1 ./mach build --dev
+
+
+
+
+
 working commit when it worked
 
-f0c3543f53ac37dbd14741fba3678fdbd01343cc
+
+you can switch to that where it used to work
+commit f0c3543f53ac37dbd14741fba3678fdbd01343cc
 
 
 
