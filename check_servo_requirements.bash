@@ -72,7 +72,8 @@ install_apt_get_requirements "Ubuntu 14.04 64 Bits" "
       libncurses5-dev
   # Requirement for llvm manual compile
     libdrm-dev
-    libdrm
+    libdrm2
+    libdrm-dbg
  "
 
 install_apt_get_requirements "Ubuntu 14.04 64 Bits" "
@@ -209,10 +210,15 @@ install_apt_get_requirements "Ubuntu 14.04 64 Bits" "
 #verify_installed_version "llc --version | grep version"  "4.0"
 
 
+exit 0
+
+
+
 if (( $? == 0 )) ;  then
   cd /_/servo
   RUST_BACKTRACE=1 ./mach build --dev
 fi
+
 
 
 Ubuntu 14.04
@@ -460,6 +466,13 @@ cd
 git clone --depth 1 --single-branch https://github.com/servo/servo
 cd servo
 RUST_BACKTRACE=1 ./mach build --dev
+
+
+
+
+Ubuntu 14.04 32 bits
+
+git log hash version that works  86b2104f11ce1070818e07728160085914521aa0
 
 
 

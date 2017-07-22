@@ -1,0 +1,12 @@
+zeus@zeus-u32:/_/servo$ git log
+commit 86b2104f11ce1070818e07728160085914521aa0
+Author: bors-servo <lbergstrom+bors@mozilla.com>
+Date:   Thu Jul 14 06:39:37 2016 -0700
+
+    Auto merge of #12444 - servo:fetch-script, r=jdm
+    
+    Improve the readability of the script fetching code.
+    
+    <!-- Reviewable:start -->
+    This change is [<img src="https://reviewable.io/review_button.svg" height="3
+    <!-- Reviewable:end -->
