@@ -5,7 +5,7 @@
 #
 
 load_check_system_requirements_wget(){
-    local provider="/_/clis/execute_command_intuivo_cli/check_system_requirements"
+    local provider="$HOME/_/clis/execute_command_intuivo_cli/check_system_requirements"
     [   -e "${provider}"  ] && source "${provider}"
     [ ! -e "${provider}"  ] && eval """$(wget --quiet --no-check-certificate  https://raw.githubusercontent.com/zeusintuivo/execute_command_intuivo_cli/master/check_system_requirements -O -  2>/dev/null )"""   # suppress only wget download messages, but keep wget output for variable
     ( ( ! command -v type passed >/dev/null 2>&1; ) && echo -e "\\033[1;31m Halt ! \\033[38;5;227m
@@ -16,7 +16,7 @@ load_check_system_requirements_wget(){
 load_check_system_requirements_wget
 
 load_struct_testing_wget(){
-    local provider="/_/clis/execute_command_intuivo_cli/struct_testing"
+    local provider="$HOME/_/clis/execute_command_intuivo_cli/struct_testing"
     [   -e "${provider}"  ] && source "${provider}"
     [ ! -e "${provider}"  ] && eval """$(wget --quiet --no-check-certificate  https://raw.githubusercontent.com/zeusintuivo/execute_command_intuivo_cli/master/struct_testing -O -  2>/dev/null )"""   # suppress only wget download messages, but keep wget output for variable
     ( ( ! command -v type passed >/dev/null 2>&1; ) && echo -e "\n \n  ERROR! Loading struct_testing \n \n " && exit 69; )
@@ -264,7 +264,7 @@ Guest additions
 sudo apt-get install dkms
 
 Share folder
-/_/clis
+$HOME/_/clis
 
 soft link folder
 ls  /media/
